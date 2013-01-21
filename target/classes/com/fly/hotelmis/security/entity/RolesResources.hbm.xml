@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fly.hotelmis.security.entity.RolesResources" table="roles_resources"
+		catalog="finance">
+		<composite-id name="rrid" class="com.fly.hotelmis.security.entity.RRPK">
+			<key-property name="rrid" column="rrid" type="java.lang.String"/>
+			<key-property name="reid" column="reid" type="java.lang.String"/>
+			<key-property name="rid" column="rid" type="java.lang.String"/>
+		</composite-id>
+	</class>
+</hibernate-mapping>

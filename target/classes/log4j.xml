@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{MM/dd/yyyy HH:mm:ss.SSS} %-5p %C{1},%L [%t] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="globalFileLog" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="c:\\hotelmis\\hotelmis-global.log" />
+		<param name="MaxFileSize" value="1000KB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{MM/dd/yyyy HH:mm:ss.SSS} %-5p %C{1},%L - %m%n" />
+		</layout>
+	</appender>
+
+	
+	<appender name="errorFileLog" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="warn" />
+		<param name="File" value="c:\\hotelmis\\hotelmis-error.log" />
+		<param name="MaxFileSize" value="1000KB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{MM/dd/yyyy HH:mm:ss.SSS} %-5p %C{1},%L - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="InterfaceLog" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="c:\hotelmis\\hotelmis-inf-msg.log" />
+		<param name="MaxFileSize" value="1000KB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{MM/dd/yyyy HH:mm:ss.SSS} %-5p %C{1},[%t] %L - %m%n" />
+		</layout>
+	</appender>
+	
+	
+	
+	<category name="com.fly.hotelmis">
+		<param name="additivity" value="false"/>
+		<priority value="info" />
+		<appender-ref ref="globalFileLog" />
+		<appender-ref ref="errorFileLog" />
+		<appender-ref ref="console" />
+	</category>
+	
+	
+	<category name="com.fly.common">
+		<param name="additivity" value="false"/>
+		<priority value="warn" />
+		<appender-ref ref="errorFileLog" />
+		<appender-ref ref="console" />
+	</category>
+	
+	<category name="org.springframework">
+		<param name="additivity" value="false"/>
+		<priority value="error" />		
+		<appender-ref ref="console" />	
+	</category>
+
+	
+	<root>
+		<level value="info"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="globalFileLog" />
+		<appender-ref ref="errorFileLog" />
+	</root>
+
+</log4j:configuration>

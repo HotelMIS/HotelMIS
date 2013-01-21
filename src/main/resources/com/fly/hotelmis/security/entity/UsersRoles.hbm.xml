@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fly.hotelmis.login.entity.Users" table="users"
+		catalog="finance">
+		<composite-id name="urpk"
+			class="com.fly.hotelmis.security.entity.URPK">
+			<key-property name="urid" column="urid" type="java.lang.String" />
+			<key-property name="uid" column="uid" type="java.lang.String" />
+			<key-property name="rid" column="rid" type="java.lang.String" />
+		</composite-id>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="">
+		<!-- SQL dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- 显示执行的SQL -->
+		<property name="show_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="jdbc.batch_size">20</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+		<!-- <mapping resource="com/fly/hotelmis/test/entity/Person.hbm.xml" /> -->
+		<mapping resource="com/fly/hotelmis/student/entity/Student.hbm.xml" />
+		<mapping resource="com/fly/hotelmis/login/entity/Users.hbm.xml" />
+		<mapping resource="com/fly/hotelmis/security/entity/Resources.hbm.xml" />
+		<mapping resource="com/fly/hotelmis/security/entity/Roles.hbm.xml" />
+		<mapping resource="com/fly/hotelmis/security/entity/RolesResources.hbm.xml" />
+		<!--<mapping resource="com/fly/hotelmis/security/entity/UsersRoles.hbm.xml" 
+			/> -->
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<!-- 属性介绍： 1 access-denied-page：没有权限跳转到的页面; 2 access-decision-manager-ref：访问决策器; -->
+	<http access-denied-page="/nopermission.jsp" auto-config="true"
+		access-decision-manager-ref="myAccessDecisionManagerBean">
+		<!-- 1 pattern : 过滤的url； 2 filters ：过滤的方式，none 为不过滤。 -->
+		<intercept-url pattern="/login.jsp" filters="none" />
+		<intercept-url pattern="/scripts/**" filters="none" />
+		<intercept-url pattern="/styles/**" filters="none" />
+		<!-- 1 login-page ： 登录页面； 2 authentication-failure-url ： 登录失败的页面; 3 default-target-url 
+			: 登录成功跳转的位置; 4 logout-success-url ：退出成功跳转到的页面 -->
+		<form-login login-page="/login.jsp"
+			authentication-failure-url="/login.jsp?error=true"
+			default-target-url="/login.action" />
+		<logout logout-success-url="/login.jsp" />
+		<http-basic />
+		<!-- 增加一个filter，这点与Acegi是不一样的，不能修改默认的filter了，这个filter位于FILTER_SECURITY_INTERCEPTOR之前 -->
+		<custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="myFilter" />
+	</http>
+
+	<!-- 一个自定义的filter，必须包含authenticationManager,accessDecisionManager,securityMetadataSource三个属性， 
+		我们的所有控制将在这三个类中实现，解释详见具体配置 -->
+	<beans:bean id="myFilter"
+		class="com.fly.hotelmis.security.filter.MyFilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="accessDecisionManager" ref="myAccessDecisionManagerBean" />
+		<beans:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+	</beans:bean>
+
+	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+	<authentication-manager alias="myAuthenticationManager">
+		<authentication-provider user-service-ref="myUserDetailService">
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="myUserDetailService"
+		class="com.fly.hotelmis.security.filter.MyUserDetailService">
+		<beans:property name="usersDao" ref="usersDao"></beans:property>
+	</beans:bean>
+	<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+	<beans:bean id="myAccessDecisionManagerBean"
+		class="com.fly.hotelmis.security.filter.MyAccessDecisionManager">
+	</beans:bean>
+	<!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
+	<beans:bean id="mySecurityMetadataSource"
+		class="com.fly.hotelmis.security.filter.MyInvocationSecurityMetadataSource">
+		<beans:constructor-arg name="resourcesDao" ref="resourcesDao"></beans:constructor-arg>
+		<beans:constructor-arg name="sessionFactory" ref="sessionFactory"></beans:constructor-arg>
+	</beans:bean>
+</beans:beans>

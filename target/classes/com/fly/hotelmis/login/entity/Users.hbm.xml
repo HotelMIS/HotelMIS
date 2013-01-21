@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fly.hotelmis.login.entity.Users" table="users"
+		catalog="finance">
+		<id name="id" type="java.lang.String" column="id" length="32">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="username" type="java.lang.String">
+			<column name="username" length="32" />
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="password" length="32" />
+		</property>
+		<property name="enable" type="java.lang.Integer">
+			<column name="enable" length="2" />
+		</property>
+	</class>
+</hibernate-mapping>

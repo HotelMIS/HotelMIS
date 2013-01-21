@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fly.hotelmis.student.entity.Student" table="student"
+		catalog="finance">
+		<id name="id" type="java.lang.String" column="ID" length="32">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="32" />
+		</property>
+		<property name="age" type="java.lang.String">
+			<column name="age" length="2" />
+		</property>
+		<property name="cardid" type="java.lang.String">
+			<column name="cardid" length="32"></column>
+		</property>
+		<property name="cardname" type="java.lang.String">
+			<column name="cardname" length="32"></column>
+		</property>
+	</class>
+	<sql-query name="queryStudent">	
+		<![CDATA[
+			select id,name,age.cardid,cardname
+			from Student 
+		]]>
+	</sql-query>
+</hibernate-mapping>
